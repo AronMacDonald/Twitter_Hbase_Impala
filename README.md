@@ -66,4 +66,8 @@ http://www.datadansandler.com/2013/03/making-clouderas-twitter-stream-real.html
 ... tbc
 
 
+Small Warning:  The code that I have loaded on GitHub workw in my environment but is still in true ‘protype state’ and is not production ready,  has no error handling and has not been stress tested with high volumes of data.
+
+
+
 

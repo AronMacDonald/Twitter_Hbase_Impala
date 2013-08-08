@@ -48,25 +48,51 @@ and/or
 http://www.datadansandler.com/2013/03/making-clouderas-twitter-stream-real.html
 
 2)  Download my Custom Event Serilizer
-... tbc
 
-3)  Create Hbase table for Tweets
-... tbc
+  AsyncHbaseTwitterEventSerializer.java
+  
+  NOTE: The code is in a rough form at the moment, with temporary log files etc
+        In addition it also includes logic to send data to SAP HANA, which you will need to remove.
+
+3)  Create Hbase table for Tweet
+
+  sudo -u hdfs hbase shell
+  create 'tweets', {NAME => 'tweet'}, {NAME => 'retweeted_status'}, {NAME => 'entities'}, {NAME => 'user'}
 
 4)  Configure Flume to use Hbase Sink  and Custom Event Serilizer
-... tbc
+  - view my example flume config: flume.conf
+  - modify as required with your cluster node names etc.
 
 5)  Start Flume and Check flow
-... tbc
+
 
 6)  Create Hive table reading Hbase table
-... tbc
+
+CREATE EXTERNAL TABLE HB_IMPALA_TWEETS (
+  id                     int,
+  id_str                 string,
+  text                   string,
+  created_at             timestamp,
+  geo_latitude           double,
+  geo_longitude          double,
+  user_screen_name       string,
+  user_location          string,
+  user_followers_count   string,
+  user_profile_image_url string
+
+)
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+WITH SERDEPROPERTIES (
+  "hbase.columns.mapping" =
+  ":key,tweet:id_str,tweet:text,tweet:created_at,tweet:geo_latitude,tweet:geo_longitude, user:screen_name,user:location,user:followers_count,user:profile_image_url"
+)
+TBLPROPERTIES("hbase.table.name" = "tweets");
+
 
 7)  Run Queries via Impala
-... tbc
 
 
-Small Warning:  The code that I have loaded on GitHub workw in my environment but is still in true ‘protype state’ and is not production ready,  has no error handling and has not been stress tested with high volumes of data.
+Small Warning:  The code that I have loaded on GitHub worked in my environment but is still in true ‘protype state’ and is not production ready,  has no error handling and has not been stress tested with high volumes of data.
 
 
 

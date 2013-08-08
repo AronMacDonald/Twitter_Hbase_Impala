@@ -79,12 +79,12 @@ CREATE EXTERNAL TABLE HB_IMPALA_TWEETS (
   user_location          string,
   user_followers_count   string,
   user_profile_image_url string
-
+  
 )
 STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
 WITH SERDEPROPERTIES (
-  "hbase.columns.mapping" =
-  ":key,tweet:id_str,tweet:text,tweet:created_at,tweet:geo_latitude,tweet:geo_longitude, user:screen_name,user:location,user:followers_count,user:profile_image_url"
+"hbase.columns.mapping" =
+":key,tweet:id_str,tweet:text,tweet:created_at,tweet:geo_latitude,tweet:geo_longitude, user:screen_name,user:location,user:followers_count,user:profile_image_url"
 )
 TBLPROPERTIES("hbase.table.name" = "tweets");
 

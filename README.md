@@ -57,7 +57,7 @@ http://www.datadansandler.com/2013/03/making-clouderas-twitter-stream-real.html
 3)  Create Hbase table for Tweet
 
   sudo -u hdfs hbase shell
-  create 'tweets', {NAME => 'tweet'}, {NAME => 'retweeted_status'}, {NAME => 'entities'}, {NAME => 'user'}
+  create 'tweets', {NAME => 'tweet'}, {NAME => 'retweet'}, {NAME => 'entities'}, {NAME => 'user'}
 
 4)  Configure Flume to use Hbase Sink  and Custom Event Serilizer
   - view my example flume config: flume.conf
